@@ -1,11 +1,44 @@
 import axios from 'axios';
+export const GET_SMURFS = 'GET_SMURFS';
+export const ADD_SMURFS = 'ADD_SMURFS';
+export const SUCCESS = 'SUCCESS';
+export const FAILURE = 'FAILURE';
+
+
+
+
+export const getSmurfs = () => dispatch => {
+  dispatch({ type: GET_SMURFS });
+  axios
+    .get('http://localhost:3333/smurfs')
+    .then(response => {
+      dispatch({ type: SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({ type: FAILURE, payload: error });
+    })
+}
+
+export const addSmurf = smurf => dispatch => {
+  dispatch({ type: ADD_SMURFS });
+  axios
+    .post('http://localhost:3333/smurfs', smurf)
+    .then(response => {
+      dispatch({ type: SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({type: FAILURE, payload: error});
+    })
+}
+
+
+
 /* 
   Action Types Go Here!
   Be sure to export each action type so you can pull it into your reducer
 */
 
-export const GET_SMURFS = "GET_SMURFS";
-export const ADD_SMURFS = "ADD_SMURFS";
+
 
 
 /*
@@ -19,23 +52,3 @@ export const ADD_SMURFS = "ADD_SMURFS";
    D - deleteSmurf
 */
 
-export const getSmurfs = () => dispatch => {
-  
-  console.log(dispatch);
-  axios
-    .get('http://localhost:3333/smurfs')
-    .then(res => {
-      dispatch({ type: GET_SMURFS, payload: res.data })
-    })
-    
-};
-
-
-
-export const addSmurf = smurfName => {
-  console.log(smurfName);
-  return {
-    type: ADD_SMURFS,
-    payload: smurfName
-  };
-};
