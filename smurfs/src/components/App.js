@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import {addSmurf} from '../actions/index';
+import { connect } from "react-redux";
 import './App.css';
+import SmurfList from './SmurfList';
+import Form from './Form';
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -14,9 +18,16 @@ class App extends Component {
         <div>Welcome to your Redux version of Smurfs!</div>
         <div>Start inside of your `src/index.js` file!</div>
         <div>Have fun!</div>
+        <Form submit={this.props.addSmurf}/>
+        <SmurfList />
       </div>
     );
   }
 }
 
-export default App;
+
+
+
+export default connect(null,{ addSmurf })(App);
+
+
